@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.util.email.response.service.ResponseEmailSender;
 import com.util.email.responsefail.service.ResponseEmailFailSender;
 import com.util.email.send.service.SenderServices;
+import org.springframework.scheduling.annotation.Async;
 
 
 @RabbitListener(queues = "${queue.email}")
@@ -22,6 +23,7 @@ public class EmailReceiver {
 	private ResponseEmailFailSender responseFail;
 
 	@RabbitHandler
+	@Async("threadPoolTaskExecutor")
 	public void receive(String in) {
 		try {
 			if(sender.sender(in)) {
@@ -35,3 +37,4 @@ public class EmailReceiver {
 	}
 
 }
+
