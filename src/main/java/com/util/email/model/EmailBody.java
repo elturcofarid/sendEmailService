@@ -12,7 +12,21 @@ public class EmailBody {
 	private List<FileDataSource> attached;
 	private List<Attached> base64;
 	private String emailFrom;
+	private String apiToken;
+	private String provaider;
 	
+	public String getProvaider() {
+		return provaider;
+	}
+	public void setProvaider(String provaider) {
+		this.provaider = provaider;
+	}
+	public String getApiToken() {
+		return apiToken;
+	}
+	public void setApiToken(String apiToken) {
+		this.apiToken = apiToken;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -45,7 +59,6 @@ public class EmailBody {
 	public void setEmailFrom(String emailFrom) {
 		this.emailFrom = emailFrom;
 	}
-	
 	
 	
 	public List<Attached> getBase64() {
