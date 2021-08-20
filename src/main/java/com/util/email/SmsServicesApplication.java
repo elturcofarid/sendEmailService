@@ -10,22 +10,11 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.util.email"})
-@EnableAsync
+
 public class SmsServicesApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SmsServicesApplication.class, args);
-	}
-	
-	@Bean("threadPoolTaskExecutor")
-	public TaskExecutor getAsyncExecutor() {
-		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(20);
-		executor.setMaxPoolSize(1000);
-		executor.setThreadNamePrefix("Async-");
-		//executor.setWaitForTasksToCompleteOnShutdown(true);
-		executor.setAwaitTerminationSeconds(100);
-		return executor;
 	}
 
 }
