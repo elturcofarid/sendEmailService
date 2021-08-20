@@ -1,5 +1,7 @@
 package com.util.email.model;
 
+import com.util.email.scm.dto.Envio;
+
 import java.util.List;
 
 import javax.activation.FileDataSource;
@@ -14,6 +16,16 @@ public class EmailBody {
 	private String emailFrom;
 	private String apiToken;
 	private String provaider;
+
+	public Envio getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(Envio correo) {
+		this.correo = correo;
+	}
+
+	private Envio correo;
 	
 	public String getProvaider() {
 		return provaider;
@@ -67,7 +79,10 @@ public class EmailBody {
 	public void setBase64(List<Attached> base64) {
 		this.base64 = base64;
 	}
-	
+
+
+
+
 	@Override
 	public String toString() {
 		return "EmailBody [email=" + email + ", content=" + content + ", subject=" + subject + "]";
