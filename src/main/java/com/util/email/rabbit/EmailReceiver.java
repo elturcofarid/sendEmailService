@@ -1,6 +1,7 @@
 package com.util.email.rabbit;
 
 import com.google.gson.Gson;
+import com.util.email.model.RequestEmail;
 import com.util.email.scm.EmailScmPort;
 import com.util.email.scm.dto.Envio;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -29,8 +30,8 @@ public class EmailReceiver {
 	@RabbitListener(queues = "${queue.email}")
 	public void receive(String in) {
 		try {
-			Envio envio = gson.fromJson(in, Envio.class);
-			emailScm.sendEmail(url,envio,token);
+			RequestEmail email = gson.fromJson(in, RequestEmail.class);
+			emailScm.sendEmail(url,email,token);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

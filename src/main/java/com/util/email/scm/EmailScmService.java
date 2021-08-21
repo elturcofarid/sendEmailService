@@ -1,5 +1,6 @@
 package com.util.email.scm;
 
+import com.util.email.model.RequestEmail;
 import com.util.email.scm.dto.Envio;
 import com.util.email.scm.dto.Respuesta;
 import kong.unirest.json.JSONObject;
@@ -16,18 +17,18 @@ public class EmailScmService implements EmailScmPort {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailScmService.class);
 
 
-    public Respuesta sendEmail(String url, Envio correo, String token) {
+    public Respuesta sendEmail(String url, RequestEmail email, String token) {
         JSONObject personJsonObject = new JSONObject();
         HttpHeaders headers = new HttpHeaders();
 
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("X-SCKEY-TOKEN", token);
+        headers.set("X-Postmark-Server-Token", token);
 
 
         HttpEntity<String> request =
                 new HttpEntity<String>(personJsonObject.toString(), headers);
 
-        HttpEntity<Envio> entity = new HttpEntity<Envio>(correo, headers);
+        HttpEntity<RequestEmail> entity = new HttpEntity<RequestEmail>(email, headers);
 
 
         try {
