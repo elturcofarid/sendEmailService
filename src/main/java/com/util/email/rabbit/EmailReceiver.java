@@ -1,37 +1,43 @@
 package com.util.email.rabbit;
 
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import com.google.gson.Gson;
+import com.util.email.model.RequestEmail;
+import com.util.email.model.ResponseEmail;
+import com.util.email.postmark.EmailPostmarkPort;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-import com.util.email.response.service.ResponseEmailSender;
-import com.util.email.responsefail.service.ResponseEmailFailSender;
-import com.util.email.send.service.SenderServices;
-
-
-@RabbitListener(queues = "${queue.email}")
+@Component
 public class EmailReceiver {
 
 	@Autowired
-	private SenderServices sender;
-	
-	@Autowired
-	private ResponseEmailSender response;
-	
-	@Autowired
-	private ResponseEmailFailSender responseFail;
+	private Gson gson;
 
-	@RabbitHandler
+	@Autowired
+	private EmailPostmarkPort emailScm;
+
+
+	@Value("${email.scm.url}")
+	private String url;
+
+	@Value("${email.scm.token}")
+	private String token;
+
+
+
+	@RabbitListener(queues = "${queue.email}")
 	public void receive(String in) {
 		try {
-			if(sender.sender(in)) {
-				response.send(in);
-			}else {
-				responseFail.send(in);
-			}
+			RequestEmail email = gson.fromJson(in, RequestEmail.class);
+
+			ResponseEmail response = emailScm.sendEmail(url,email,token);
+
+			System.out.println(response.toString());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 }
