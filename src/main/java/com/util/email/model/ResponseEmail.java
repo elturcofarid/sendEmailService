@@ -1,17 +1,11 @@
 package com.util.email.model;
 
-import java.util.Date;
-
-/**
- * HTTP send request response object
- */
-public class MessageResponseDto {
-
-    private String To;
-    private String SubmittedAt;
-    private String MessageID;
-    private float ErrorCode;
-    private String Message;
+public class ResponseEmail {
+    public String To;
+    public String SubmittedAt;
+    public String MessageID;
+    public float ErrorCode;
+    public String Message;
 
 
     // Getter Methods
@@ -56,5 +50,17 @@ public class MessageResponseDto {
 
     public void setMessage( String Message ) {
         this.Message = Message;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ResponseEmail{" +
+                "To='" + To + '\'' +
+                ", SubmittedAt='" + SubmittedAt + '\'' +
+                ", MessageID='" + MessageID + '\'' +
+                ", ErrorCode=" + ErrorCode +
+                ", Message='" + Message + '\'' +
+                '}';
     }
 }

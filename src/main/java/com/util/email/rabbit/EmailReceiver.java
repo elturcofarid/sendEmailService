@@ -2,8 +2,8 @@ package com.util.email.rabbit;
 
 import com.google.gson.Gson;
 import com.util.email.model.RequestEmail;
-import com.util.email.scm.EmailScmPort;
-import com.util.email.scm.dto.Envio;
+import com.util.email.model.ResponseEmail;
+import com.util.email.postmark.EmailPostmarkPort;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ public class EmailReceiver {
 	private Gson gson;
 
 	@Autowired
-	private EmailScmPort emailScm;
+	private EmailPostmarkPort emailScm;
 
 
 	@Value("${email.scm.url}")
@@ -31,7 +31,11 @@ public class EmailReceiver {
 	public void receive(String in) {
 		try {
 			RequestEmail email = gson.fromJson(in, RequestEmail.class);
-			emailScm.sendEmail(url,email,token);
+
+			ResponseEmail response = emailScm.sendEmail(url,email,token);
+
+			System.out.println(response.toString());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -14,13 +14,22 @@ public class RequestEmail {
         ArrayList<Object> Headers = new ArrayList<Object>();
         private boolean TrackOpens;
         private String TrackLinks;
-        ArrayList<Object> Attachments = new ArrayList<Object>();
+    private ArrayList<Attachment> Attachments = new ArrayList<Attachment>();
         private String MessageStream;
 
 
         // Getter Methods
 
-        public String getFrom() {
+
+    public ArrayList<Attachment> getAttachments() {
+        return Attachments;
+    }
+
+    public void setAttachments(ArrayList<Attachment> attachments) {
+        Attachments = attachments;
+    }
+
+    public String getFrom() {
             return From;
         }
 

@@ -1,4 +1,4 @@
-package com.util.email.scm.dto;
+package com.util.email.postmark.dto;
 
 public class Recipient{
     public String emailAddress;

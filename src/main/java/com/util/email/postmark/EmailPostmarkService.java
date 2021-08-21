@@ -1,8 +1,7 @@
-package com.util.email.scm;
+package com.util.email.postmark;
 
 import com.util.email.model.RequestEmail;
-import com.util.email.scm.dto.Envio;
-import com.util.email.scm.dto.Respuesta;
+import com.util.email.model.ResponseEmail;
 import kong.unirest.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,12 +11,12 @@ import org.springframework.web.client.RestTemplate;
 
 
 @Service
-public class EmailScmService implements EmailScmPort {
+public class EmailPostmarkService implements EmailPostmarkPort {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EmailScmService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmailPostmarkService.class);
 
 
-    public Respuesta sendEmail(String url, RequestEmail email, String token) {
+    public ResponseEmail sendEmail(String url, RequestEmail email, String token) {
         JSONObject personJsonObject = new JSONObject();
         HttpHeaders headers = new HttpHeaders();
 
@@ -33,13 +32,12 @@ public class EmailScmService implements EmailScmPort {
 
         try {
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<Respuesta> responseEntity = restTemplate.exchange(
+            ResponseEntity<ResponseEmail> responseEntity = restTemplate.exchange(
                     url, HttpMethod.POST, entity,
-                    Respuesta.class);
+                    ResponseEmail.class);
 
-            if (responseEntity.getStatusCode() == HttpStatus.ACCEPTED) {
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 return responseEntity.getBody();
-
             }
         } catch (Exception ex) {
             ex.printStackTrace();
