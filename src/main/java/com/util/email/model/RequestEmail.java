@@ -1,25 +1,41 @@
 package com.util.email.model;
 
+
 import java.util.ArrayList;
 
 public class RequestEmail {
 
-        private String From;
-        private String To;
-        private String Subject;
-        private String Tag;
-        private String HtmlBody;
-        private String TextBody;
-        private String ReplyTo;
+        public String From;
+    public String To;
+    public String Subject;
+    public String Tag;
+    public String HtmlBody;
+    public String TextBody;
+    public String ReplyTo;
         ArrayList<Object> Headers = new ArrayList<Object>();
-        private boolean TrackOpens;
-        private String TrackLinks;
-    private ArrayList<Attachment> Attachments = new ArrayList<Attachment>();
-        private String MessageStream;
+    public boolean TrackOpens;
+    public String TrackLinks;
+    public ArrayList<Attachment> Attachments = new ArrayList<Attachment>();
+    public String MessageStream;
 
+    public Data data;
+    public String APiToken;
 
-        // Getter Methods
+    public Data getData() {
+        return data;
+    }
 
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    public String getAPiToken() {
+        return APiToken;
+    }
+
+    public void setAPiToken(String APiToken) {
+        this.APiToken = APiToken;
+    }
 
     public ArrayList<Attachment> getAttachments() {
         return Attachments;
@@ -131,6 +147,8 @@ public class RequestEmail {
                 ", TrackLinks='" + TrackLinks + '\'' +
                 ", Attachments=" + Attachments +
                 ", MessageStream='" + MessageStream + '\'' +
+                ", data=" + data +
+                ", APiToken='" + APiToken + '\'' +
                 '}';
     }
 }

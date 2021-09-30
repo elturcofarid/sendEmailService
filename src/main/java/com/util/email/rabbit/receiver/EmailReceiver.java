@@ -1,9 +1,11 @@
-package com.util.email.rabbit;
+package com.util.email.rabbit.receiver;
 
 import com.google.gson.Gson;
 import com.util.email.model.RequestEmail;
 import com.util.email.model.ResponseEmail;
+import com.util.email.model.ResponsePosmark;
 import com.util.email.postmark.EmailPostmarkPort;
+import com.util.email.rabbit.sender.MessageSender;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,9 +24,13 @@ public class EmailReceiver {
 	@Value("${email.scm.url}")
 	private String url;
 
-	@Value("${email.scm.token}")
-	private String token;
+	//@Value("${email.scm.token}")
+	//private String token;
 
+
+
+@Autowired
+private MessageSender sender;
 
 
 	@RabbitListener(queues = "${queue.email}")
@@ -32,12 +38,13 @@ public class EmailReceiver {
 		try {
 			RequestEmail email = gson.fromJson(in, RequestEmail.class);
 
-			ResponseEmail response = emailScm.sendEmail(url,email,token);
+			ResponseEmail response = emailScm.sendEmail(url,email,email.getTag());
 
-			System.out.println(response.toString());
+			sender.send(new ResponsePosmark(response, email.getData()));
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 }

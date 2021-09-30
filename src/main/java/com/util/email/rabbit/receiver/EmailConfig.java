@@ -1,4 +1,4 @@
-package com.util.email.rabbit;
+package com.util.email.rabbit.receiver;
 
 
 
