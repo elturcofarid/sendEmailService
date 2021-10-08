@@ -2,23 +2,23 @@ package com.util.email.model;
 
 public class ResponsePosmark {
 
-    private ResponseEmail response;
+    private Object response;
 
     private Object data;
 
 
     public ResponsePosmark(){}
 
-    public ResponsePosmark(ResponseEmail response, Object data) {
+    public ResponsePosmark(Object response, Object data) {
         this.response = response;
         this.data = data;
     }
 
-    public ResponseEmail getResponse() {
+    public Object getResponse() {
         return response;
     }
 
-    public void setResponse(ResponseEmail response) {
+    public void setResponse(Object response) {
         this.response = response;
     }
 

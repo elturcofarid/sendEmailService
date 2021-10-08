@@ -30,11 +30,25 @@ public class EmailPostmarkService implements EmailPostmarkPort {
         HttpEntity<RequestEmail> entity = new HttpEntity<RequestEmail>(email, headers);
 
 
+
+        System.out.println(email.getAPiToken()
+        );
+
+        System.out.println(email.toString()
+        );
+
+
+
+
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<ResponseEmail> responseEntity = restTemplate.exchange(
                     url, HttpMethod.POST, entity,
                     ResponseEmail.class);
+
+
+            System.out.println(responseEntity.getBody()
+            );
 
             return responseEntity.getBody();
 
