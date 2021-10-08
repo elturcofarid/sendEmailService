@@ -4,12 +4,12 @@ public class ResponsePosmark {
 
     private ResponseEmail response;
 
-    private Data data;
+    private Object data;
 
 
     public ResponsePosmark(){}
 
-    public ResponsePosmark(ResponseEmail response, Data data) {
+    public ResponsePosmark(ResponseEmail response, Object data) {
         this.response = response;
         this.data = data;
     }
@@ -22,11 +22,11 @@ public class ResponsePosmark {
         this.response = response;
     }
 
-    public Data getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }

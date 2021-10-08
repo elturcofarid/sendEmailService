@@ -1,6 +1,7 @@
 package com.util.email.rabbit.receiver;
 
 import com.google.gson.Gson;
+import com.util.email.model.DataRequest;
 import com.util.email.model.RequestEmail;
 import com.util.email.model.ResponseEmail;
 import com.util.email.model.ResponsePosmark;
@@ -36,9 +37,12 @@ private MessageSender sender;
 	@RabbitListener(queues = "${queue.email}")
 	public void receive(String in) {
 		try {
-			RequestEmail email = gson.fromJson(in, RequestEmail.class);
 
-			ResponseEmail response = emailScm.sendEmail(url,email,email.getTag());
+			DataRequest data = gson.fromJson(in, DataRequest.class);
+
+			RequestEmail email =  gson.fromJson(gson.toJson(data.getData()), RequestEmail.class);
+
+			ResponseEmail response = emailScm.sendEmail(url,email,email.getAPiToken());
 
 			sender.send(new ResponsePosmark(response, email.getData()));
 

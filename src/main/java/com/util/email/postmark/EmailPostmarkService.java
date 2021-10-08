@@ -36,9 +36,8 @@ public class EmailPostmarkService implements EmailPostmarkPort {
                     url, HttpMethod.POST, entity,
                     ResponseEmail.class);
 
-            if (responseEntity.getStatusCode() == HttpStatus.OK) {
-                return responseEntity.getBody();
-            }
+            return responseEntity.getBody();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -18,14 +18,14 @@ public class RequestEmail {
     public ArrayList<Attachment> Attachments = new ArrayList<Attachment>();
     public String MessageStream;
 
-    public Data data;
+    public Object data;
     public String APiToken;
 
-    public Data getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
